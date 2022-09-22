@@ -45,6 +45,10 @@ int main(int argc, char *argv[])
                 unsigned short destination_port = (ntohs(udp_data[2])) | udp_data[3];
                 printf("Des port: %d \n", destination_port);
 
+                // UDP Packet Length
+                unsigned short udp_length = (ntohs(udp_data[4])) | udp_data[5];
+                printf("UDP Packet Length: %d \n", udp_length);
+
                 
                 
             }
