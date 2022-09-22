@@ -1,27 +1,48 @@
 #include <stdio.h>
- 
-int main ( int argc, char *argv[] )
+#include <stdlib.h>
+#include <arpa/inet.h>
+
+#define GLOBAL_HEADER 24
+#define UDP_HEADER 8
+
+int main(int argc, char *argv[])
 {
-    if ( argc != 2 )
+    if (argc != 2)
     {
-        printf( "usage: %s filename", argv[0] );
+        // File not provided through command line
+        printf("File not provided!\n");
+        exit(0);
     }
-    else 
+    else
     {
-        FILE *file = fopen( argv[1], "r" );
- 
-        if ( file == 0 )
+        FILE *file = fopen(argv[1], "rb");
+        char c;
+
+        if (file == 0)
         {
-            printf( "Could not open file\n" );
+            printf("Could not open file!\n");
+            exit(EXIT_FAILURE);
         }
-        else 
+        else
         {
-            int x;
-            while  ( ( x = fgetc( file ) ) != EOF )
+
+            fseek(file, GLOBAL_HEADER, SEEK_SET);
+            while ((c = fgetc(file)) != EOF)
             {
-                printf( "%c", x );
+                printf("\n\n---------------------------------\n");
+
+                fseek(file, 50 - 1, SEEK_CUR);
+
+                // Read UDP data
+                unsigned char udp_data[UDP_HEADER];
+                fread(udp_data, 1, UDP_HEADER, file);
+
+               
+                
             }
-            fclose( file );
+            printf("\n");
+
+            fclose(file);
         }
     }
 }
