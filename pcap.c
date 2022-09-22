@@ -49,6 +49,12 @@ int main(int argc, char *argv[])
                 unsigned short udp_length = (ntohs(udp_data[4])) | udp_data[5];
                 printf("UDP Packet Length: %d \n", udp_length);
 
+                // Get the checksum
+                unsigned short checksum = (ntohs(udp_data[6])) | udp_data[7];
+
+                // Printing checkusum as hex
+                printf("Checksum: 0x%x \n", checksum);
+
                 
                 
             }
