@@ -32,12 +32,20 @@ int main(int argc, char *argv[])
                 printf("\n\n---------------------------------\n");
 
                 fseek(file, 50 - 1, SEEK_CUR);
-
+                
                 // Read UDP data
                 unsigned char udp_data[UDP_HEADER];
                 fread(udp_data, 1, UDP_HEADER, file);
 
-               
+                // Source port
+                unsigned short source_port = (ntohs(udp_data[0])) | udp_data[1];
+                printf("Src port: %d \n", source_port);
+
+                // Destination port
+                unsigned short destination_port = (ntohs(udp_data[2])) | udp_data[3];
+                printf("Des port: %d \n", destination_port);
+
+                
                 
             }
             printf("\n");
