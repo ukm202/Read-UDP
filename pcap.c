@@ -55,7 +55,15 @@ int main(int argc, char *argv[])
                 // Printing checkusum as hex
                 printf("Checksum: 0x%x \n", checksum);
 
-                
+                // Getting UDP payload and printing it in ASCII representation
+                for (int i = 0; i < udp_length - UDP_HEADER; i++)
+                {
+                    int c = fgetc(file);
+                    if (c >= 32 && c <= 128)
+                        printf("%c", (unsigned char)c);
+                    else
+                        printf(".");
+                }
                 
             }
             printf("\n");
